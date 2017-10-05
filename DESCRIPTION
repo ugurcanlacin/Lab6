@@ -1,0 +1,17 @@
+Package: Lab6
+Type: Package
+Title: Lab6
+Version: 1.0.0
+Date: 2017-10-04
+Author: Ugurcan Lacin, Fahad Hameed
+Maintainer: Any issues, contact: <ugurcanlacin@gmail.com>
+Description: Lab6
+License: GPL-3
+Depends: R (>= 2.10)
+URL: https://github.com/ugurcanlacin/Lab6
+LazyData: true
+RoxygenNote: 6.0.1
+Suggests: testthat, ggplot2,
+    knitr,
+    rmarkdown
+VignetteBuilder: knitr
