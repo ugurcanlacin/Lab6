@@ -1,12 +1,9 @@
-set.seed(42)
-n <- 16
-knapsack_objects <-
-  data.frame(
-    w=sample(1:4000, size = n, replace = TRUE),
-    v=runif(n = n, 0, 10000)
-  )
-
-
+#'@title Brute Force Knapsack Algorithm
+#'@description Calculates best values and weights for given capacity.
+#'@param x Dataframe with variables v and w.
+#'@param W Integer as capacity.
+#'@export
+#'@return Returns a list with best value and combination.
 
 brute_force_knapsack <- function(x,W){
   
@@ -40,10 +37,17 @@ brute_force_knapsack <- function(x,W){
   return(bestCombinationList)
 }
 
+# set.seed(42)
+# n <- 16
+# knapsack_objects <-
+#   data.frame(
+#     w=sample(1:4000, size = n, replace = TRUE),
+#     v=runif(n = n, 0, 10000)
+#   )
+
 # Start the clock!
-ptm <- proc.time()
-brute_force_knapsack(x = knapsack_objects[1:8,], W = 3500)
-# Sys.sleep(1)
+# ptm <- proc.time()
+# brute_force_knapsack(x = knapsack_objects[1:8,], W = 3500)
 # Stop the clock
-proc.time() - ptm
+# proc.time() - ptm
 

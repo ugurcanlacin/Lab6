@@ -1,0 +1,18 @@
+---
+title: "Brute Force Knapsack"
+author: "Fahad Hameed Ugurcan Lacin"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Vignette Title}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+In this package we are implementing a package which is for Lab 6.
+  
+
+```{r}
+library(httr)
+r <- GET("https://api.nasa.gov/neo/rest/v1/neo/browse")
+```
