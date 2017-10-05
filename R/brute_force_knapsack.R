@@ -7,6 +7,10 @@
 
 brute_force_knapsack <- function(x,W){
   
+  if(!is.data.frame(x) || W < 0){
+    stop("errounous input")
+  }
+  
   listOfCombinations <- list()
   for(i in 1:nrow(x)){
     listOfCombinations[[i]] <- combn(rownames(x), i, paste, collapse = " ")
@@ -33,7 +37,7 @@ brute_force_knapsack <- function(x,W){
   validValuesIndexesInCombinationsVector <- which(vectorOfValues == maximumValidValue)
   validCombination <- vectorOfCombinations[validValuesIndexesInCombinationsVector]
   
-  bestCombinationList <- list(value = maximumValidValue, elements = validCombination)
+  bestCombinationList <- list(value = maximumValidValue, elements = as.numeric(strsplit(validCombination, " ")[[1]]))
   return(bestCombinationList)
 }
 
@@ -47,7 +51,7 @@ brute_force_knapsack <- function(x,W){
 
 # Start the clock!
 # ptm <- proc.time()
-# brute_force_knapsack(x = knapsack_objects[1:8,], W = 3500)
+# brute_force_knapsack(x = knapsack_objects[1:16,], W = 3500)
 # Stop the clock
 # proc.time() - ptm
 
