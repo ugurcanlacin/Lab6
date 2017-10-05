@@ -1,7 +1,7 @@
 #'@title Brute Force Knapsack Algorithm
 #'@description Calculates best values and weights for given capacity.
 #'@param x Dataframe with variables v and w.
-#'@param W Integer as capacity.
+#'@param W Integer as capacity. 
 #'@export
 #'@return Returns a list with best value and combination.
 
