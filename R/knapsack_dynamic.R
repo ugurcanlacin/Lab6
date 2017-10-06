@@ -1,7 +1,7 @@
 #'@title Dynamic Knapsack Algorithm
 #'@description Calculates best values and weights for given capacity.
 #'@param x Dataframe with variables v and w.
-#'@param W Integer as capacity.
+#'@param W Integer as capacity. 
 #'@export
 #'@return Returns a list with best value and combination.
 
@@ -64,6 +64,9 @@ knapsack_dynamic <- function(x,W){
 #     w=sample(1:4000, size = n, replace = TRUE),
 #     v=runif(n = n, 0, 10000)
 #   )
+# 
+# library(lineprof)
+# dynamic <- lineprof(knapsack_dynamic(x = knapsack_objects[1:11,], W = 3500))
 
 # ptm <- proc.time()
 # knapsack_dynamic(x = knapsack_objects[1:8,], W = 3500)

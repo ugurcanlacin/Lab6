@@ -4,7 +4,7 @@
 \alias{brute_force_knapsack}
 \title{Brute Force Knapsack Algorithm}
 \usage{
-brute_force_knapsack(x, W)
+brute_force_knapsack(x, W, parrallel = FALSE)
 }
 \arguments{
 \item{x}{Dataframe with variables v and w.}

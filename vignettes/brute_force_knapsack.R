@@ -109,33 +109,34 @@ result
 ## ------------------------------------------------------------------------
 greedy_knapsack <- function(x, W){
   
-  stopifnot(is.data.frame(x) & is.numeric(W))
-  
-  if((sort(colnames(x))[1] == "v" & sort(colnames(x))[2] == "w" )==FALSE){
-    stop("Could not find 'w' or 'v'")
+  if(!is.data.frame(x) || W < 0){
+    stop("errounous input")
   }
   
-  val_per_w <- x$v / x$w
-  x$val_per_w <- val_per_w
-  #order the data
-  data_greed_sort <- x[order(x$val_per_w,decreasing = TRUE),]
+  x$frac <- x$v/x$w
+  x <- x[order(x$frac, decreasing = TRUE), ]
   
+  value <- vector("numeric")
+  elements <- vector("numeric")
   
-  summie <- data_greed_sort$w[1]
-  n <-0
-  txt <- c()
-  #do the summs
-  while(summie < W){
-    n <- n+1
-    summie <- sum(data_greed_sort$w[1:n]) 
-    val <- sum(data_greed_sort$v[1:n])
-    txt[n] <- rownames(data_greed_sort)[n]
+  weight <- 0
+  value <- 0
+  
+  i <- 1
+  while(weight + x[i,"w"] < W){
+    value <- value + x[i,"v"] 
+    weight <- weight + x[i,"w"]
+    elements[i] <- as.numeric(rownames(x[i,]))
+    i <- i + 1
+    
   }
   
-  ret_list <- list(value = round(val - data_greed_sort$v[n] ,0),
-                   elements = as.numeric(txt[1:(n-1)]))
+  res <- list(
+    "value" = round(value,digits = 0),
+    "elements" = elements
+  )
   
-  return(ret_list)
+  return(res)
   
 }
 

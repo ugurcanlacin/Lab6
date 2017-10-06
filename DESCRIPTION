@@ -7,7 +7,7 @@ Author: Ugurcan Lacin, Fahad Hameed
 Maintainer: Any issues, contact: <ugurcanlacin@gmail.com>
 Description: Lab6
 License: GPL-3
-Depends: R (>= 2.10)
+Depends: R (>= 2.10),parallel
 URL: https://github.com/ugurcanlacin/Lab6
 LazyData: true
 RoxygenNote: 6.0.1

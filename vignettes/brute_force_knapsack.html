@@ -79,7 +79,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <span class="kw">data.frame</span>(
   <span class="dt">w=</span><span class="kw">sample</span>(<span class="dv">1</span>:<span class="dv">4000</span>, <span class="dt">size =</span> <span class="dv">2000</span>, <span class="dt">replace =</span> <span class="ot">TRUE</span>),
   <span class="dt">v=</span><span class="kw">runif</span>(<span class="dt">n =</span> <span class="dv">2000</span>, <span class="dv">0</span>, <span class="dv">10000</span>))</code></pre></div>
-<p>Brute force knapsack implementation.</p>
+<p><strong>Brute force knapsack implementation.</strong></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">brute_force_knapsack &lt;-<span class="st"> </span>function(x,W){
   
   listOfCombinations &lt;-<span class="st"> </span><span class="kw">list</span>()
@@ -113,8 +113,8 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 }</code></pre></div>
 <p><strong><em>Question</em></strong> How much time does it takes to run the algorithm for n = 16 objects?</p>
 <pre><code>##    user  system elapsed 
-##   0.440   0.008   0.448</code></pre>
-<p>Dynamic knapsack implementation.</p>
+##   0.432   0.000   0.434</code></pre>
+<p><strong>Dynamic knapsack implementation.</strong></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">knapsack_dynamic &lt;-<span class="st"> </span>function(x,W){
   if(!<span class="kw">is.data.frame</span>(x) ||<span class="st"> </span>W &lt;<span class="st"> </span><span class="dv">0</span>){
     <span class="kw">stop</span>(<span class="st">&quot;errounous input&quot;</span>)
@@ -168,42 +168,43 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 }</code></pre></div>
 <p><strong><em>Question</em></strong> How much time does it takes to run the algorithm for n = 500 objects?</p>
 <pre><code>##    user  system elapsed 
-##   1.076   0.004   1.079</code></pre>
-<p>Greedy knapsack implementation.</p>
+##   1.060   0.000   1.063</code></pre>
+<p><strong>Greedy knapsack implementation.</strong></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">greedy_knapsack &lt;-<span class="st"> </span>function(x, W){
   
-  <span class="kw">stopifnot</span>(<span class="kw">is.data.frame</span>(x) &amp;<span class="st"> </span><span class="kw">is.numeric</span>(W))
-  
-  if((<span class="kw">sort</span>(<span class="kw">colnames</span>(x))[<span class="dv">1</span>] ==<span class="st"> &quot;v&quot;</span> &amp;<span class="st"> </span><span class="kw">sort</span>(<span class="kw">colnames</span>(x))[<span class="dv">2</span>] ==<span class="st"> &quot;w&quot;</span> )==<span class="ot">FALSE</span>){
-    <span class="kw">stop</span>(<span class="st">&quot;Could not find 'w' or 'v'&quot;</span>)
+  if(!<span class="kw">is.data.frame</span>(x) ||<span class="st"> </span>W &lt;<span class="st"> </span><span class="dv">0</span>){
+    <span class="kw">stop</span>(<span class="st">&quot;errounous input&quot;</span>)
   }
   
-  val_per_w &lt;-<span class="st"> </span>x$v /<span class="st"> </span>x$w
-  x$val_per_w &lt;-<span class="st"> </span>val_per_w
-  <span class="co">#order the data</span>
-  data_greed_sort &lt;-<span class="st"> </span>x[<span class="kw">order</span>(x$val_per_w,<span class="dt">decreasing =</span> <span class="ot">TRUE</span>),]
+  x$frac &lt;-<span class="st"> </span>x$v/x$w
+  x &lt;-<span class="st"> </span>x[<span class="kw">order</span>(x$frac, <span class="dt">decreasing =</span> <span class="ot">TRUE</span>), ]
   
+  value &lt;-<span class="st"> </span><span class="kw">vector</span>(<span class="st">&quot;numeric&quot;</span>)
+  elements &lt;-<span class="st"> </span><span class="kw">vector</span>(<span class="st">&quot;numeric&quot;</span>)
   
-  summie &lt;-<span class="st"> </span>data_greed_sort$w[<span class="dv">1</span>]
-  n &lt;-<span class="dv">0</span>
-  txt &lt;-<span class="st"> </span><span class="kw">c</span>()
-  <span class="co">#do the summs</span>
-  while(summie &lt;<span class="st"> </span>W){
-    n &lt;-<span class="st"> </span>n<span class="dv">+1</span>
-    summie &lt;-<span class="st"> </span><span class="kw">sum</span>(data_greed_sort$w[<span class="dv">1</span>:n]) 
-    val &lt;-<span class="st"> </span><span class="kw">sum</span>(data_greed_sort$v[<span class="dv">1</span>:n])
-    txt[n] &lt;-<span class="st"> </span><span class="kw">rownames</span>(data_greed_sort)[n]
+  weight &lt;-<span class="st"> </span><span class="dv">0</span>
+  value &lt;-<span class="st"> </span><span class="dv">0</span>
+  
+  i &lt;-<span class="st"> </span><span class="dv">1</span>
+  while(weight +<span class="st"> </span>x[i,<span class="st">&quot;w&quot;</span>] &lt;<span class="st"> </span>W){
+    value &lt;-<span class="st"> </span>value +<span class="st"> </span>x[i,<span class="st">&quot;v&quot;</span>] 
+    weight &lt;-<span class="st"> </span>weight +<span class="st"> </span>x[i,<span class="st">&quot;w&quot;</span>]
+    elements[i] &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(<span class="kw">rownames</span>(x[i,]))
+    i &lt;-<span class="st"> </span>i +<span class="st"> </span><span class="dv">1</span>
+    
   }
   
-  ret_list &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dt">value =</span> <span class="kw">round</span>(val -<span class="st"> </span>data_greed_sort$v[n] ,<span class="dv">0</span>),
-                   <span class="dt">elements =</span> <span class="kw">as.numeric</span>(txt[<span class="dv">1</span>:(n<span class="dv">-1</span>)]))
+  res &lt;-<span class="st"> </span><span class="kw">list</span>(
+    <span class="st">&quot;value&quot;</span> =<span class="st"> </span><span class="kw">round</span>(value,<span class="dt">digits =</span> <span class="dv">0</span>),
+    <span class="st">&quot;elements&quot;</span> =<span class="st"> </span>elements
+  )
   
-  <span class="kw">return</span>(ret_list)
+  <span class="kw">return</span>(res)
   
 }</code></pre></div>
 <p><strong><em>Question</em></strong> How much time does it takes to run the algorithm for n = 1000000 objects?</p>
 <pre><code>##    user  system elapsed 
-##   1.008   0.004   1.013</code></pre>
+##   0.992   0.012   1.006</code></pre>
 
 
 
