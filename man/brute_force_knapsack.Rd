@@ -4,12 +4,14 @@
 \alias{brute_force_knapsack}
 \title{Brute Force Knapsack Algorithm}
 \usage{
-brute_force_knapsack(x, W, parrallel = FALSE)
+brute_force_knapsack(x, W, parallel = FALSE)
 }
 \arguments{
 \item{x}{Dataframe with variables v and w.}
 
 \item{W}{Integer as capacity.}
+
+\item{parallel}{Boolean makes function parallel}
 }
 \value{
 Returns a list with best value and combination.

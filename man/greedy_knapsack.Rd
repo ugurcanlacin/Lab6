@@ -7,15 +7,15 @@
 greedy_knapsack(x, W)
 }
 \arguments{
-\item{x}{A data.frame cx with two variables v and w}
+\item{x}{Dataframe with variables v and w.}
 
-\item{W}{The weight capacity of the knapsack}
+\item{W}{Integer as capacity.}
 }
 \value{
 The maximum knapsack value and corresponding elements that contributes to the value.
 }
 \description{
-Greedy knapsack implementation
+Calculates best values and weights for given capacity.
 }
 \references{
 \url{https://en.wikipedia.org/wiki/Knapsack_problem#Greedy_approximation_algorithm}
