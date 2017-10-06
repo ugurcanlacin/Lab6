@@ -49,9 +49,7 @@ brute_force_knapsack <- function(x,W){
 #     v=runif(n = n, 0, 10000)
 #   )
 
-# Start the clock!
 # ptm <- proc.time()
 # brute_force_knapsack(x = knapsack_objects[1:16,], W = 3500)
-# Stop the clock
 # proc.time() - ptm
 

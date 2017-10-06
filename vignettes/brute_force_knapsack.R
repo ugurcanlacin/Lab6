@@ -1,27 +1,10 @@
----
-title: "Brute Force Knapsack"
-author: "Fahad Hameed Ugurcan Lacin"
-date: "`r Sys.Date()`"
-output: rmarkdown::html_vignette
-vignette: >
-  %\VignetteIndexEntry{Vignette Title}
-  %\VignetteEngine{knitr::rmarkdown}
-  %\VignetteEncoding{UTF-8}
----
-
-In this package we are implementing a package which is for Lab 6.
-
-
-```{r}
+## ------------------------------------------------------------------------
 knapsack_objects <-
 data.frame(
   w=sample(1:4000, size = 2000, replace = TRUE),
   v=runif(n = 2000, 0, 10000))
-```
 
-**Brute force knapsack implementation.**
-
-```{r}
+## ------------------------------------------------------------------------
 brute_force_knapsack <- function(x,W){
   
   listOfCombinations <- list()
@@ -53,25 +36,16 @@ brute_force_knapsack <- function(x,W){
   bestCombinationList <- list(value = maximumValidValue, elements = validCombination)
   return(bestCombinationList)
 }
-```
 
-**_Question_** How much time does it takes to run the algorithm for n = 16 objects?
-
-```{r,echo=FALSE,results="hide"}
+## ----echo=FALSE,results="hide"-------------------------------------------
 ptm <- proc.time()
 brute_force_knapsack(x = knapsack_objects[1:16,], W = 3500)
 result <- proc.time() - ptm
-```
 
-```{r,echo=FALSE}
+## ----echo=FALSE----------------------------------------------------------
 result
-```
 
-
-
-**Dynamic knapsack implementation.**
-
-```{r}
+## ------------------------------------------------------------------------
 knapsack_dynamic <- function(x,W){
   if(!is.data.frame(x) || W < 0){
     stop("errounous input")
@@ -123,68 +97,53 @@ knapsack_dynamic <- function(x,W){
   list_ret <- list(value = round(max(combinationMatrix)), elements = sort(elements))
   return(list_ret)
 }
-```
 
-**_Question_** How much time does it takes to run the algorithm for n = 500 objects?
-
-```{r,echo=FALSE,results="hide"}
+## ----echo=FALSE,results="hide"-------------------------------------------
 ptm <- proc.time()
 knapsack_dynamic(x = knapsack_objects[1:500,], W = 3500)
 result <- proc.time() - ptm
-```
 
-```{r,echo=FALSE}
+## ----echo=FALSE----------------------------------------------------------
 result
-```
 
-
-
-**Greedy knapsack implementation.**
-
-```{r}
+## ------------------------------------------------------------------------
 greedy_knapsack <- function(x, W){
   
-  if(!is.data.frame(x) || W < 0){
-    stop("errounous input")
+  stopifnot(is.data.frame(x) & is.numeric(W))
+  
+  if((sort(colnames(x))[1] == "v" & sort(colnames(x))[2] == "w" )==FALSE){
+    stop("Could not find 'w' or 'v'")
   }
   
-  x$frac <- x$v/x$w
-  x <- x[order(x$frac, decreasing = TRUE), ]
+  val_per_w <- x$v / x$w
+  x$val_per_w <- val_per_w
+  #order the data
+  data_greed_sort <- x[order(x$val_per_w,decreasing = TRUE),]
   
-  value <- vector("numeric")
-  elements <- vector("numeric")
   
-  weight <- 0
-  value <- 0
-  
-  i <- 1
-  while(weight + x[i,"w"] < W){
-    value <- value + x[i,"v"] 
-    weight <- weight + x[i,"w"]
-    elements[i] <- as.numeric(rownames(x[i,]))
-    i <- i + 1
-    
+  summie <- data_greed_sort$w[1]
+  n <-0
+  txt <- c()
+  #do the summs
+  while(summie < W){
+    n <- n+1
+    summie <- sum(data_greed_sort$w[1:n]) 
+    val <- sum(data_greed_sort$v[1:n])
+    txt[n] <- rownames(data_greed_sort)[n]
   }
   
-  res <- list(
-    "value" = round(value,digits = 0),
-    "elements" = elements
-  )
+  ret_list <- list(value = round(val - data_greed_sort$v[n] ,0),
+                   elements = as.numeric(txt[1:(n-1)]))
   
-  return(res)
+  return(ret_list)
   
 }
-```
 
-**_Question_** How much time does it takes to run the algorithm for n = 1000000 objects?
-
-```{r,echo=FALSE,results="hide"}
+## ----echo=FALSE,results="hide"-------------------------------------------
 ptm <- proc.time()
 greedy_knapsack(x = knapsack_objects[1:1000000,], W = 3500)
 result <- proc.time() - ptm
-```
 
-```{r,echo=FALSE}
+## ----echo=FALSE----------------------------------------------------------
 result
-```
 
