@@ -8,15 +8,14 @@ knapsack_objects <- data.frame(
   v=runif(n = n, 0, 10000)
 )
 
-test_that("Correct object is returned", {
-  expect_silent(bfk <- brute_force_knapsack(x = knapsack_objects[1:8,], W = 3500))
-  expect_named(bfk, c("value", "elements"))
-})
-
-
 test_that("functions rejects errounous input.", {
   expect_error(brute_force_knapsack("hej", 3500))
   expect_error(brute_force_knapsack(x = knapsack_objects[1:8,], W = -3500))
+})
+
+test_that("Correct object is returned", {
+  expect_silent(bfk <- brute_force_knapsack(x = knapsack_objects[1:8,], W = 3500))
+  expect_named(bfk, c("value", "elements"))
 })
 
 test_that("Function return correct results.", {
