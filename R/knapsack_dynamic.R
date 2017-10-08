@@ -31,7 +31,7 @@ knapsack_dynamic <- function(x,W){
         } else {
           tal <- combinationMatrix[i - 1, j - wt[i - 1]]
         }
-        combinationMatrix[i, j] <- max(val[i - 1] + tal,  combinationMatrix[i - 1, j])
+        combinationMatrix[i, j] <- max(val[i - 1]+tal,  combinationMatrix[i-1,j])
       } else{
         combinationMatrix[i, j] <- combinationMatrix[i-1, j]
       }
@@ -40,17 +40,17 @@ knapsack_dynamic <- function(x,W){
   }
   
   
-  i <- nrow(x) + 1
-  j <- W + 1
+  i <- nrow(x)+1
+  j <- W+1
   n <- 1
   
   while (i >= 2 && j >= 1) {
-    if (combinationMatrix[i, j] > combinationMatrix[i - 1, j]) {
-      elements[n] <- el_order[i - 1]
+    if (combinationMatrix[i, j] > combinationMatrix[i-1,j]) {
+      elements[n] <- el_order[i-1]
       n <- n + 1
-      j <- j - wt[i - 1]
+      j <- j-wt[i-1]
     }
-    i <- i - 1
+    i <- i-1
   }
   
   list_ret <- list(value = round(max(combinationMatrix)), elements = sort(elements))
