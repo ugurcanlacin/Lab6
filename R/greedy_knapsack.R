@@ -2,7 +2,7 @@
 #' @description Calculates best values and weights for given capacity.
 #' @param x Dataframe with variables v and w.
 #' @param W Integer as capacity. 
-#' @return The maximum knapsack value and corresponding elements that contributes to the value. 
+#' @return The Function Returns maximum knapsack value and corresponding elements that contributes to the value. 
 #' @references \url{https://en.wikipedia.org/wiki/Knapsack_problem#Greedy_approximation_algorithm}
 #' @export
 greedy_knapsack <- function(x, W){
@@ -12,13 +12,14 @@ greedy_knapsack <- function(x, W){
   }
   
   x$frac <- x$v/x$w
-  x <- x[order(x$frac, decreasing = TRUE), ]
+  x <- x[order(x$frac,decreasing=TRUE), ]
   
-  value <- vector("numeric")
   elements <- vector("numeric")
+  value <- vector("numeric")
   
-  weight <- 0
   value <- 0
+  weight <- 0
+  
   i <- 1
   
   while(weight + x$w[i] < W){
@@ -41,7 +42,6 @@ greedy_knapsack <- function(x, W){
 #     w=sample(1:4000, size = n, replace = TRUE),
 #     v=runif(n = n, 0, 10000)
 #   )
-# 
 # ptm <- proc.time()
 # greedy_knapsack(x = knapsack_objects[1:1000000,], W = 3500)
 # proc.time() - ptm
