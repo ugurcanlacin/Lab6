@@ -77,17 +77,16 @@ brute_force_knapsack <- function(x,W, parallel = FALSE){
   }
   return(bestCombinationList)
 }
-# 
-set.seed(42)
-n <- 16
-knapsack_objects <-
-  data.frame(
-    w=sample(1:4000, size = n, replace = TRUE),
-    v=runif(n = n, 0, 10000)
-  )
+# set.seed(42)
+# n <- 16
+# knapsack_objects <-
+#   data.frame(
+#     w=sample(1:4000, size = n, replace = TRUE),
+#     v=runif(n = n, 0, 10000)
+#   )
 # ptm <- proc.time()
 # brute_force_knapsack(x = knapsack_objects[1:16,], W = 3500,parallel = TRUE)
 # proc.time() - ptm
-library(lineprof)
-brute_normal <- lineprof(brute_force_knapsack(x = knapsack_objects[1:16,], W = 3500,parallel= TRUE))
+# library(lineprof)
+# brute_normal <- lineprof(brute_force_knapsack(x = knapsack_objects[1:16,], W = 3500,parallel= TRUE))
 # shine(brute_normal)
