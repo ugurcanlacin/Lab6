@@ -12,7 +12,7 @@ greedy_knapsack(x, W)
 \item{W}{Integer as capacity.}
 }
 \value{
-The maximum knapsack value and corresponding elements that contributes to the value.
+The Function Returns maximum knapsack value and corresponding elements that contributes to the value.
 }
 \description{
 Calculates best values and weights for given capacity.

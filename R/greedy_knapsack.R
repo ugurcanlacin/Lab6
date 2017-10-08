@@ -35,13 +35,16 @@ greedy_knapsack <- function(x, W){
   
 }
 
-# set.seed(42)
-# n <- 16
-# knapsack_objects <-
-#   data.frame(
-#     w=sample(1:4000, size = n, replace = TRUE),
-#     v=runif(n = n, 0, 10000)
-#   )
+set.seed(42)
+n <- 16
+knapsack_objects <-
+  data.frame(
+    w=sample(1:4000, size = n, replace = TRUE),
+    v=runif(n = n, 0, 10000)
+  )
+library(lineprof)
+greedy <- lineprof(greedy_knapsack(x = knapsack_objects[1:11,], W = 3500))
+shine(greedy)
 # ptm <- proc.time()
 # greedy_knapsack(x = knapsack_objects[1:1000000,], W = 3500)
 # proc.time() - ptm

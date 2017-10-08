@@ -12,7 +12,7 @@
 
 <meta name="author" content="Fahad Hameed Ugurcan Lacin" />
 
-<meta name="date" content="2017-10-06" />
+<meta name="date" content="2017-10-08" />
 
 <title>Brute Force Knapsack</title>
 
@@ -70,7 +70,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 
 <h1 class="title toc-ignore">Brute Force Knapsack</h1>
 <h4 class="author"><em>Fahad Hameed Ugurcan Lacin</em></h4>
-<h4 class="date"><em>2017-10-06</em></h4>
+<h4 class="date"><em>2017-10-08</em></h4>
 
 
 
@@ -113,7 +113,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 }</code></pre></div>
 <p><strong><em>Question</em></strong> How much time does it takes to run the algorithm for n = 16 objects?</p>
 <pre><code>##    user  system elapsed 
-##   0.432   0.000   0.434</code></pre>
+##   0.424   0.000   0.425</code></pre>
 <p><strong>Dynamic knapsack implementation.</strong></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">knapsack_dynamic &lt;-<span class="st"> </span>function(x,W){
   if(!<span class="kw">is.data.frame</span>(x) ||<span class="st"> </span>W &lt;<span class="st"> </span><span class="dv">0</span>){
@@ -168,7 +168,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 }</code></pre></div>
 <p><strong><em>Question</em></strong> How much time does it takes to run the algorithm for n = 500 objects?</p>
 <pre><code>##    user  system elapsed 
-##   1.060   0.000   1.063</code></pre>
+##   1.052   0.000   1.050</code></pre>
 <p><strong>Greedy knapsack implementation.</strong></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">greedy_knapsack &lt;-<span class="st"> </span>function(x, W){
   
@@ -204,7 +204,8 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 }</code></pre></div>
 <p><strong><em>Question</em></strong> How much time does it takes to run the algorithm for n = 1000000 objects?</p>
 <pre><code>##    user  system elapsed 
-##   0.992   0.012   1.006</code></pre>
+##   1.072   0.004   1.077</code></pre>
+<p><strong><em>Question</em></strong> What performance gain could you get by trying to improving your code?</p>
 
 
 

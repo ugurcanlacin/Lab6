@@ -64,10 +64,10 @@ knapsack_dynamic <- function(x,W){
 #     w=sample(1:4000, size = n, replace = TRUE),
 #     v=runif(n = n, 0, 10000)
 #   )
-# 
+
 # library(lineprof)
 # dynamic <- lineprof(knapsack_dynamic(x = knapsack_objects[1:11,], W = 3500))
-
+# shine(dynamic)
 # ptm <- proc.time()
 # knapsack_dynamic(x = knapsack_objects[1:8,], W = 3500)
 # proc.time() - ptm

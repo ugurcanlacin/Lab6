@@ -1,10 +1,27 @@
-## ------------------------------------------------------------------------
+---
+title: "Brute Force Knapsack"
+author: "Fahad Hameed Ugurcan Lacin"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Vignette Title}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+In this package we are implementing a package which is for Lab 6.
+
+
+```{r}
 knapsack_objects <-
 data.frame(
   w=sample(1:4000, size = 2000, replace = TRUE),
   v=runif(n = 2000, 0, 10000))
+```
 
-## ------------------------------------------------------------------------
+**Brute force knapsack implementation.**
+
+```{r}
 brute_force_knapsack <- function(x,W){
   
   listOfCombinations <- list()
@@ -36,16 +53,25 @@ brute_force_knapsack <- function(x,W){
   bestCombinationList <- list(value = maximumValidValue, elements = validCombination)
   return(bestCombinationList)
 }
+```
 
-## ----echo=FALSE,results="hide"-------------------------------------------
+**_Question_** How much time does it takes to run the algorithm for n = 16 objects?
+
+```{r,echo=FALSE,results="hide"}
 ptm <- proc.time()
 brute_force_knapsack(x = knapsack_objects[1:16,], W = 3500)
 result <- proc.time() - ptm
+```
 
-## ----echo=FALSE----------------------------------------------------------
+```{r,echo=FALSE}
 result
+```
 
-## ------------------------------------------------------------------------
+
+
+**Dynamic knapsack implementation.**
+
+```{r}
 knapsack_dynamic <- function(x,W){
   if(!is.data.frame(x) || W < 0){
     stop("errounous input")
@@ -97,16 +123,25 @@ knapsack_dynamic <- function(x,W){
   list_ret <- list(value = round(max(combinationMatrix)), elements = sort(elements))
   return(list_ret)
 }
+```
 
-## ----echo=FALSE,results="hide"-------------------------------------------
+**_Question_** How much time does it takes to run the algorithm for n = 500 objects?
+
+```{r,echo=FALSE,results="hide"}
 ptm <- proc.time()
 knapsack_dynamic(x = knapsack_objects[1:500,], W = 3500)
 result <- proc.time() - ptm
+```
 
-## ----echo=FALSE----------------------------------------------------------
+```{r,echo=FALSE}
 result
+```
 
-## ------------------------------------------------------------------------
+
+
+**Greedy knapsack implementation.**
+
+```{r}
 greedy_knapsack <- function(x, W){
   
   if(!is.data.frame(x) || W < 0){
@@ -139,12 +174,55 @@ greedy_knapsack <- function(x, W){
   return(res)
   
 }
+```
 
-## ----echo=FALSE,results="hide"-------------------------------------------
+**_Question_** How much time does it takes to run the algorithm for n = 1000000 objects?
+
+```{r,echo=FALSE,results="hide"}
 ptm <- proc.time()
 greedy_knapsack(x = knapsack_objects[1:1000000,], W = 3500)
 result <- proc.time() - ptm
+```
 
-## ----echo=FALSE----------------------------------------------------------
+```{r,echo=FALSE}
 result
+```
 
+**_Question_** What performance gain could you get by trying to improving your code?
+
+```{r,echo=FALSE}
+library(lineprof)
+```
+
+**Brute force no parallel**
+
+```{r}
+#lineprof(brute_force_knapsack(x = knapsack_objects[1:100,], W = 3500,parallel= FALSE))
+```
+
+In this analysis, it shows us combn function takes most of time. This function may be replaced by its c++ implementation to make this process faster.
+
+
+**Brute force parallel**
+
+```{r}
+#lineprof(brute_force_knapsack(x = knapsack_objects[1:100,], W = 3500,parallel= TRUE))
+```
+
+Parallel running shows us parLapplyLB function call take more time. This is probably because we used parLapplyLB function instead for loop. In its scope, we also call combn function. So, the problem is same probably with no parallel implementation.
+
+**Knapsack Dynamic**
+
+```{r}
+#lineprof(knapsack_dynamic(x = knapsack_objects[1:11,], W = 3500))
+```
+
+When we go deep into function calls according to proccess which take most of time, we see that for and while loops take some time. This is probably complexity issue.
+
+**Knapsack Greedy**
+
+```{r}
+#lineprof(knapsack_dynamic(x = knapsack_objects[1:11,], W = 3500))
+```
+
+When we go deep into function calls according to proccess which take most of time like we did for Knapsack Dynamic solution, we see same result. While loop takes most of time in this analysis.
