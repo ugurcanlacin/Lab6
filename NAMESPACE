@@ -3,3 +3,6 @@
 export(brute_force_knapsack)
 export(greedy_knapsack)
 export(knapsack_dynamic)
+import(lineprof)
+import(parallel)
+importFrom(utils,combn)

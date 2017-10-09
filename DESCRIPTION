@@ -5,7 +5,7 @@ Version: 1.0.0
 Date: 2017-10-04
 Author: Ugurcan Lacin, Fahad Hameed
 Maintainer: Any issues, contact: <ugurcanlacin@gmail.com>
-Description: Lab6
+Description: Lab6 implementation package.
 License: GPL-3
 Depends: R (>= 2.10),parallel,lineprof
 URL: https://github.com/ugurcanlacin/Lab6

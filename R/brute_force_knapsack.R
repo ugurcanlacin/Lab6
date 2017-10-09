@@ -3,6 +3,8 @@
 #'@param x Dataframe with variables v and w.
 #'@param W Integer as capacity. 
 #'@param parallel Boolean makes function parallel
+#'@import lineprof parallel
+#'@importFrom utils combn
 #'@export
 #'@return Returns a list with best value and combination.
 
@@ -43,9 +45,6 @@ brute_force_knapsack <- function(x,W, parallel = FALSE){
       
       bestCombinationList <- list(value = maximumValidValue, elements = as.numeric(strsplit(validCombination, " ")[[1]]))
   }else{
-    require(parallel)
-    requireNamespace("parallel")
-    
     numberOfCores <- detectCores() - 1
     cluster <- makeCluster(numberOfCores)
     clusterExport(cluster , c("x") ,envir = environment())
